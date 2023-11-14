@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import CollectionTheme, Collection
 
-# Register your models here.
+admin.site.register(CollectionTheme)
+admin.site.register(Collection)

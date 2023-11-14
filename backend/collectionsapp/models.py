@@ -1,4 +1,6 @@
 import markdown2
+import dropbox
+from django.conf import settings
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.contrib.auth import get_user_model
@@ -22,7 +24,10 @@ class Collection(models.Model):
     creator = models.ForeignKey(CustomUser,
                                 blank=False, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
-    item_fields = models.JSONField(default=dict, blank=True, null=True)
+    image_link = models.CharField(max_length=255, blank=True, null=True)
+
+    image = models.ImageField(
+        upload_to='collection_images/', blank=True, null=True)
 
     def __str__(self):
         return self.name

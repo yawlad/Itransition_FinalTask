@@ -28,10 +28,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'corsheaders',
+    'storages',
 
     'authapp',
     'usersapp',
     'collectionsapp',
+    'itemsapp',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,11 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 
 CORS_ALLOW_CREDENTIALS = True
+
+# DropBox settings
+
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_APP_KEY = ''
+DROPBOX_APP_SECRET = ''
+DROPBOX_OAUTH2_REFRESH_TOKEN = ''
+DROPBOX_OAUTH2_TOKEN = "sl.Bp1j5MMJEzJpewXOS0CE2UtXMam_7sdBchYlwuO7vXcykhDrmyX-AZKAizu83dgaYBqJW17Od57SFnNP78C9RFQJVesHuJhGPCJTyV7xejWI2xPq753uOXHySEXwk3p-EOzNWJTIlIuWQ_s8jaaR"
