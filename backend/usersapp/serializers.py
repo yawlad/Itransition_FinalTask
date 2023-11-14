@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class DetailUserSerializer(serializers.ModelSerializer):
-
+    
     new_is_blocked = serializers.BooleanField(required=False)
     new_is_superuser = serializers.BooleanField(required=False)
 

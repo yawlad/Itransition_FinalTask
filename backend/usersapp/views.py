@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from config.permissions import IsSuperUserPermission
 from .serializers import UserSerializer, UserMeSerializer, DetailUserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
@@ -11,14 +12,14 @@ CustomUser = get_user_model()
 class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, IsSuperUserPermission, ]
 
 
 class DetailUserView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = CustomUser.objects.all()
     serializer_class = DetailUserSerializer
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, IsSuperUserPermission, ]
 
     def get_object(self):
         user_id = self.kwargs['pk']
@@ -40,7 +41,6 @@ class DetailUserView(generics.RetrieveUpdateDestroyAPIView):
 
 class UserMeView(generics.RetrieveAPIView):
     serializer_class = UserMeSerializer
-    permission_classes = [IsAuthenticated,]
 
     def get_object(self):
         return self.request.user
