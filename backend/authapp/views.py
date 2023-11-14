@@ -13,23 +13,25 @@ class RegisterUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserRegisterSerializer
     permission_classes = [AllowAny,]
-
+    authentication_classes = []
 
 class CustomObtainAuthToken(ObtainAuthToken):
     permission_classes = [AllowAny,]
-
+    authentication_classes = []
+    
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(
             data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
-
         user = serializer.validated_data['user']
+        
+        response_data = UserLoginSerializer(user).data
+        response = Response(data=response_data)
+        
         if user.is_blocked:
             return Response({'detail': 'User is blocked.'}, status=status.HTTP_403_FORBIDDEN)
 
         token, created = Token.objects.get_or_create(user=user)
-        response_data = UserLoginSerializer(user).data
-        response = Response(data=response_data)
         response.set_cookie(key='auth_token', value=token.key,
                             secure=True, samesite="None", max_age=3600 * 24 * 7)
 
