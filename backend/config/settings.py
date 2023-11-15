@@ -112,7 +112,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 
@@ -140,10 +140,8 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
 
 CORS_ALLOW_CREDENTIALS = True
 
-# DropBox settings
+# DropboxStorage settings
 
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-DROPBOX_APP_KEY = ''
-DROPBOX_APP_SECRET = ''
-DROPBOX_OAUTH2_REFRESH_TOKEN = ''
-DROPBOX_OAUTH2_TOKEN = "sl.Bp1j5MMJEzJpewXOS0CE2UtXMam_7sdBchYlwuO7vXcykhDrmyX-AZKAizu83dgaYBqJW17Od57SFnNP78C9RFQJVesHuJhGPCJTyV7xejWI2xPq753uOXHySEXwk3p-EOzNWJTIlIuWQ_s8jaaR"
+DROPBOX_BASE_URL = 'https://www.dropbox.com'
+DROPBOX_ACCESS_TOKEN = os.environ.get(
+    "DROPBOX_ACCESS_TOKEN", 'sl.Bp490F1Sbsy5G4tZO7rZKmsLt88lj_Hd1oQJ4YeaU-Vs3OKMVSLG-FHmLxKROZo8gqGsilsS8ZwxQD41NoXhd4ypZuVVnYGs-nbeMmx711XIz_6TgwiZKoimMm1YT2FTFBjYPYupNzKRQggmFvuI')

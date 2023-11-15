@@ -1,7 +1,7 @@
 
 from django.urls import path
-
+from .views import ItemListCreateView
 
 urlpatterns = [
-    # path('/'),
+    path('', ItemListCreateView.as_view()),
 ]

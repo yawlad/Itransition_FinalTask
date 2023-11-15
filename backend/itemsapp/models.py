@@ -21,7 +21,7 @@ class Item(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     tags = models.ManyToManyField(ItemTag, blank=True)
-
+    
     custom_fields = models.JSONField(default=dict, blank=True, null=True)
 
     def __str__(self):

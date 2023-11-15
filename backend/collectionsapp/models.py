@@ -17,17 +17,18 @@ class CollectionTheme(models.Model):
 
 class Collection(models.Model):
 
-    name = models.CharField(max_length=255, blank=False, null=False)
+    name = models.CharField(max_length=255, blank=False,
+                            null=False, unique=True)
     description = models.TextField(blank=False, null=False)
     theme = models.ForeignKey(
         CollectionTheme, blank=False, null=True, on_delete=models.SET_NULL)
     creator = models.ForeignKey(CustomUser,
                                 blank=False, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
-    image_link = models.CharField(max_length=255, blank=True, null=True)
 
-    image = models.ImageField(
-        upload_to='collection_images/', blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)
+
+    custom_fields = models.JSONField(default=list, blank=False, null=False)
 
     def __str__(self):
         return self.name
