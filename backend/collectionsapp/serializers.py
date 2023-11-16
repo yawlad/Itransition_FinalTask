@@ -1,26 +1,28 @@
 from rest_framework import serializers
-
-from config.dropbox import upload_to_dropbox_and_get_url
 from .models import Collection, CollectionTheme
+from django.contrib.auth import get_user_model
 
+CustomUser = get_user_model()
 
 class CollectionThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CollectionTheme
         fields = ('id', 'name')
 
+class CollectionCreatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'username', 'email')
 
 class CollectionSerializer(serializers.ModelSerializer):
 
-    theme = CollectionThemeSerializer(read_only=True)
-    theme_id = serializers.IntegerField(write_only=True)
-    custom_fields = serializers.JSONField()
-    image = serializers.ImageField(write_only=True)
+    image = serializers.ImageField(write_only=True, allow_null=True)
+
+    common_fields = ('id', 'name', 'description', 'creator',
+                     'created_at', 'image_url', 'custom_fields', 'theme', 'image')
 
     class Meta:
         model = Collection
-        fields = ('id', 'name', 'description', 'theme',
-                  'creator', 'created_at', 'image', 'image_url', 'custom_fields', 'theme_id')
         extra_kwargs = {
             'id': {'read_only': True},
             'creator': {'read_only': True},
@@ -28,20 +30,28 @@ class CollectionSerializer(serializers.ModelSerializer):
             'image_url': {'read_only': True}
         }
 
+    def get_field_names(self, declared_fields, info):
+        return self.common_fields
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if self.context['request'].method == 'GET':
+            representation['theme'] = CollectionThemeSerializer(
+                instance.theme).data
+            representation['creator'] = CollectionCreatorSerializer(
+                instance.creator).data
+
+        return representation
+
     def validate_custom_fields(self, value):
+        
+        ############################
+        
         if not value:
             value = []
         return value
 
-    def validate_theme_id(self, value):
-        theme = CollectionTheme.objects.filter(id=value)
-        if not theme.exists():
-            raise serializers.ValidationError(
-                "Theme with that id doesn't exist")
-        return theme[0]
-
     def create(self, validated_data):
-        theme = validated_data.pop('theme_id')
         validated_data.pop('image')
-        collection = Collection.objects.create(theme=theme, **validated_data)
+        collection = Collection.objects.create(**validated_data)
         return collection
