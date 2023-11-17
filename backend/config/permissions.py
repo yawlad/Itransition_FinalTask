@@ -1,12 +1,22 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import IsAuthenticated
 
-class IsSuperUserPermission(BasePermission):
+
+class IsAuthenticatedAndNotBlocked(IsAuthenticated):
 
     def has_permission(self, request, view):
-        return request.user and not request.user.is_blocked and request.user.is_superuser
+        base_permission = super().has_permission(request, view)
+        return base_permission and not request.user.is_blocked
 
 
-class IsSuperUserOrOwnerPermission(BasePermission):
-    
+class IsSuperUser(IsAuthenticatedAndNotBlocked):
+
+    def has_permission(self, request, view):
+        base_permission = super().has_permission(request, view)
+        return base_permission and request.user.is_superuser
+
+
+class IsSuperUserOrOwner(IsAuthenticatedAndNotBlocked):
+
     def has_object_permission(self, request, view, obj):
-        return request.user and (request.user.is_superuser or obj.creator == request.user) and not request.user.is_blocked
+        base_permission = super().has_permission(request, view)
+        return base_permission and (request.user.is_superuser or obj.creator == request.user)

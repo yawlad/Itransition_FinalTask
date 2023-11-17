@@ -129,7 +129,7 @@ REST_FRAMEWORK = {
         'authapp.auth.CustomTokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'config.permissions.IsAuthenticatedAndNotBlocked',
     ],
 }
 
@@ -143,5 +143,6 @@ CORS_ALLOW_CREDENTIALS = True
 # DropboxStorage settings
 
 DROPBOX_BASE_URL = 'https://www.dropbox.com'
+DROPBOX_IMAGES_PATH = '/collection_images'
 DROPBOX_ACCESS_TOKEN = os.environ.get(
-    "DROPBOX_ACCESS_TOKEN", 'sl.Bp7lk_HxDUl_AhOuHFOoIk4tYpybOE1q3QubuwuKhaxFSdJ-tC2XGGA1nc1ew9SBstc5nhUMZ4xtrpPlHBMaXZdDcBW90dsPQzP7024ueX4m9iBonB0Br7HXUk-ZqijiGdEJbliUQ_J-iSe-aoK6')
+    "DROPBOX_ACCESS_TOKEN", 'sl.BqC8DlFAMNMaikbjPVibyMHNrW-qtJ5c21M4_u1lYNIKQaOX3Nx9vNqALJDDf9boWkU4PIUDCvLYaoiyMHUQR3efx6Agh27pvOevZOPVBPjwZvbkmNG178GM5j-A4XwUXRdeRe1_KBP5G70lz-RZ')

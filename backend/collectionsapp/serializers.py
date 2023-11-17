@@ -1,33 +1,39 @@
 from rest_framework import serializers
 from .models import Collection, CollectionTheme
+from django.core.validators import FileExtensionValidator
 from django.contrib.auth import get_user_model
+from config.utils import is_unique_fields
+from config.constants import CUSTOM_FIELD_TYPES
 
 CustomUser = get_user_model()
+
 
 class CollectionThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CollectionTheme
-        fields = ('id', 'name')
+        fields = "__all__"
+
 
 class CollectionCreatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'email')
+        fields = ('id', 'username')
+
 
 class CollectionSerializer(serializers.ModelSerializer):
 
-    image = serializers.ImageField(write_only=True, allow_null=True)
+    image = serializers.ImageField(write_only=True, allow_null=True, validators=[
+                                   FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
 
     common_fields = ('id', 'name', 'description', 'creator',
-                     'created_at', 'image_url', 'custom_fields', 'theme', 'image')
+                     'created_at', 'image_url', 'custom_fields_classes', 'theme', 'image')
 
     class Meta:
         model = Collection
         extra_kwargs = {
-            'id': {'read_only': True},
             'creator': {'read_only': True},
-            'created_at': {'read_only': True},
-            'image_url': {'read_only': True}
+            'image_url': {'read_only': True},
+            'custom_fields_classes': {'default': list}
         }
 
     def get_field_names(self, declared_fields, info):
@@ -40,18 +46,35 @@ class CollectionSerializer(serializers.ModelSerializer):
                 instance.theme).data
             representation['creator'] = CollectionCreatorSerializer(
                 instance.creator).data
-
         return representation
 
-    def validate_custom_fields(self, value):
-        
-        ############################
-        
-        if not value:
-            value = []
-        return value
+    def validate_custom_fields_classes(self, value):
 
-    def create(self, validated_data):
-        validated_data.pop('image')
-        collection = Collection.objects.create(**validated_data)
-        return collection
+        allowed_field_keys = ['name', 'type']
+        names_set = set()
+
+        if type(value) != list:
+            raise serializers.ValidationError(
+                "Must be correct JSON list or null")
+
+        for field in value:
+            if type(field) != dict:
+                raise serializers.ValidationError(
+                    "Fields must be correct JSON dicts")
+            for key in field.keys():
+                if key not in allowed_field_keys:
+                    raise serializers.ValidationError(
+                        f"Every field must include only {allowed_field_keys}")
+            for key in allowed_field_keys:
+                if key not in field.keys():
+                    raise serializers.ValidationError(
+                        f"Every field must include only {allowed_field_keys}")
+            if field["type"] not in CUSTOM_FIELD_TYPES:
+                raise serializers.ValidationError(
+                    f"Value 'type' must be one of {CUSTOM_FIELD_TYPES}")
+
+        if not is_unique_fields(value):
+            raise serializers.ValidationError(
+                f"Names must unique")
+
+        return value

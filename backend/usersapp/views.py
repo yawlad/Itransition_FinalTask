@@ -1,10 +1,7 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
-from config.permissions import IsSuperUserPermission, IsSuperUserOrOwnerPermission
+from config.permissions import IsSuperUser
 from .serializers import UserSerializer
 from django.contrib.auth import get_user_model
-from rest_framework.response import Response
-from rest_framework import status
 
 CustomUser = get_user_model()
 
@@ -12,14 +9,14 @@ CustomUser = get_user_model()
 class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsSuperUserPermission, ]
+    permission_classes = [IsSuperUser,]
 
 
 class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsSuperUserPermission, ]
+    permission_classes = [IsSuperUser, ]
 
 
 class UserMeView(generics.RetrieveUpdateDestroyAPIView):

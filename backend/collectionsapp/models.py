@@ -1,9 +1,9 @@
 import markdown2
-import dropbox
-from django.conf import settings
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.contrib.auth import get_user_model
+
+from config.constants import CUSTOM_FIELD_TYPES
 
 CustomUser = get_user_model()
 
@@ -21,14 +21,12 @@ class Collection(models.Model):
                             null=False, unique=True)
     description = models.TextField(blank=False, null=False)
     theme = models.ForeignKey(
-        CollectionTheme, blank=False, null=True, on_delete=models.SET_NULL)
+        CollectionTheme, blank=False, null=True, on_delete=models.SET_NULL, related_name='collections')
     creator = models.ForeignKey(CustomUser,
-                                blank=False, null=True, on_delete=models.SET_NULL)
+                                blank=False, null=True, on_delete=models.SET_NULL, related_name='collections')
     created_at = models.DateTimeField(auto_now_add=True)
-
     image_url = models.URLField(blank=True, null=True)
-
-    custom_fields = models.JSONField(default=list, blank=False, null=False)
+    custom_fields_classes = models.JSONField(blank=True, null=True)
 
     def __str__(self):
         return self.name

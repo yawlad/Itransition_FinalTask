@@ -5,4 +5,3 @@ admin.site.register(Item)
 admin.site.register(ItemComment)
 admin.site.register(ItemTag)
 admin.site.register(ItemLike)
-
