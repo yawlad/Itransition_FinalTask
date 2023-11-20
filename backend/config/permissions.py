@@ -20,3 +20,10 @@ class IsSuperUserOrOwner(IsAuthenticatedAndNotBlocked):
     def has_object_permission(self, request, view, obj):
         base_permission = super().has_permission(request, view)
         return base_permission and (request.user.is_superuser or obj.creator == request.user)
+
+
+class IsSuperUserOrItemOwner(IsAuthenticatedAndNotBlocked):
+
+    def has_object_permission(self, request, view, obj):
+        base_permission = super().has_permission(request, view)
+        return base_permission and (request.user.is_superuser or obj.collection.creator == request.user)

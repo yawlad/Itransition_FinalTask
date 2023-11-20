@@ -3,7 +3,7 @@ from config.permissions import IsSuperUserOrOwner
 from .models import Collection, CollectionTheme
 from .serializers import CollectionSerializer, CollectionThemeSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from config.dropbox import create_image_link, upload_to_dropbox_and_get_url, delete_from_dropbox
+from config.dropbox import create_image_link, delete_from_dropbox
 
 
 class CollectionThemeListView(generics.ListAPIView):

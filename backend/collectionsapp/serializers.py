@@ -51,7 +51,6 @@ class CollectionSerializer(serializers.ModelSerializer):
     def validate_custom_fields_classes(self, value):
 
         allowed_field_keys = ['name', 'type']
-        names_set = set()
 
         if type(value) != list:
             raise serializers.ValidationError(

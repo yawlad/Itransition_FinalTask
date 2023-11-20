@@ -33,9 +33,9 @@ class ItemLike(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     item = models.ForeignKey(
         "Item", on_delete=models.CASCADE, related_name='likes')
-
+    
     def __str__(self):
-        return f"Like {self.id} by {self.creator.username}"
+        return f"Like {self.item.name} by {self.creator.username}"
 
     class Meta:
         constraints = [

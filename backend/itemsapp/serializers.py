@@ -5,18 +5,19 @@ from collectionsapp.models import Collection
 from config.utils import have_allowed_fields, is_synced_with_field_classes, is_unique_fields
 
 
-class CommentOrLikeCreatorSerializer(serializers.ModelSerializer):
+class CreatorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('id', 'username')
+        fields = ('id', 'username',)
 
 
 class ItemCollectionSerializer(serializers.ModelSerializer):
+    creator = CreatorSerializer()
 
     class Meta:
         model = Collection
-        fields = ('id', 'name', )
+        fields = ('id', 'name', 'creator', )
 
 
 class ItemTagSerializer(serializers.ModelSerializer):
@@ -26,19 +27,25 @@ class ItemTagSerializer(serializers.ModelSerializer):
 
 
 class ItemLikeSerializer(serializers.ModelSerializer):
-    creator = CommentOrLikeCreatorSerializer()
+    creator = CreatorSerializer(read_only=True)
 
     class Meta:
         model = ItemLike
-        fields = "__all__"
+        fields = ('id', 'creator', 'item')
+        extra_kwargs = {
+            'item': {'write_only': True},
+        }
 
 
 class ItemCommentSerializer(serializers.ModelSerializer):
-    creator = CommentOrLikeCreatorSerializer()
+    creator = CreatorSerializer(read_only=True)
 
     class Meta:
         model = ItemComment
-        fields = ('id', 'creator', 'content', 'created_at')
+        fields = ('id', 'creator', 'content', 'created_at', 'item')
+        extra_kwargs = {
+            'item': {'write_only': True},
+        }
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -68,8 +75,6 @@ class ItemSerializer(serializers.ModelSerializer):
         if self.context['request'].method == 'GET':
             representation['collection'] = ItemCollectionSerializer(
                 instance.collection).data
-            representation['tags'] = ItemTagSerializer(
-                instance.tags).data
         return representation
 
     def validate_custom_fields(self, value):
