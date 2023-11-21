@@ -4,9 +4,11 @@ import Link from "next/link";
 
 const NonAuthorizedHeaderPart = () => {
   return (
-    <Link href={"/login/"} className="button-standart">
-      <FontAwesomeIcon icon={faSignIn} />
-    </Link>
+    <div className="button-standart">
+      <Link href={"/login/"}>
+        <FontAwesomeIcon icon={faSignIn} />
+      </Link>
+    </div>
   );
 };
 
