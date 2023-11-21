@@ -28,8 +28,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'corsheaders',
-    
+    'storages',
+
     'authapp',
+    'usersapp',
+    'collectionsapp',
+    'itemsapp',
 ]
 
 MIDDLEWARE = [
@@ -108,7 +112,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 
@@ -125,7 +129,7 @@ REST_FRAMEWORK = {
         'authapp.auth.CustomTokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'config.permissions.IsAuthenticatedAndNotBlocked',
     ],
 }
 
@@ -135,3 +139,10 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 
 CORS_ALLOW_CREDENTIALS = True
+
+# DropboxStorage settings
+
+DROPBOX_BASE_URL = 'https://www.dropbox.com'
+DROPBOX_IMAGES_PATH = '/collection_images'
+DROPBOX_ACCESS_TOKEN = os.environ.get(
+    "DROPBOX_ACCESS_TOKEN", 'sl.BqC8DlFAMNMaikbjPVibyMHNrW-qtJ5c21M4_u1lYNIKQaOX3Nx9vNqALJDDf9boWkU4PIUDCvLYaoiyMHUQR3efx6Agh27pvOevZOPVBPjwZvbkmNG178GM5j-A4XwUXRdeRe1_KBP5G70lz-RZ')

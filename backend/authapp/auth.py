@@ -10,10 +10,6 @@ class CustomTokenAuthentication(TokenAuthentication):
             return None
         try:
             user, token = super().authenticate_credentials(token_key)
-            print(user.is_blocked)
-            if user and user.is_blocked:
-                raise exceptions.AuthenticationFailed()
         except exceptions.AuthenticationFailed:
-            raise exceptions.AuthenticationFailed(
-                detail="User is blocked", code=status.HTTP_403_FORBIDDEN)
+            return None
         return user, token
