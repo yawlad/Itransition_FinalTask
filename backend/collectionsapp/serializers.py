@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Collection, CollectionTheme
 from django.core.validators import FileExtensionValidator
+from itemsapp.models import Item
 from django.contrib.auth import get_user_model
 from config.utils import is_unique_fields
 from config.constants import CUSTOM_FIELD_TYPES
@@ -20,13 +21,21 @@ class CollectionCreatorSerializer(serializers.ModelSerializer):
         fields = ('id', 'username')
 
 
+class CollectionItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ('id', 'name', "custom_fields")
+
+
 class CollectionSerializer(serializers.ModelSerializer):
 
     image = serializers.ImageField(write_only=True, allow_null=True, validators=[
                                    FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
 
+    items = CollectionItemSerializer(many=True, read_only=True)
+
     common_fields = ('id', 'name', 'description', 'creator',
-                     'created_at', 'image_url', 'custom_fields_classes', 'theme', 'image')
+                     'created_at', 'image_url', 'custom_fields_classes', 'theme', 'image', 'items')
 
     class Meta:
         model = Collection

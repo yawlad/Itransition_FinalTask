@@ -23,7 +23,7 @@ class ItemCollectionSerializer(serializers.ModelSerializer):
 class ItemTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemTag
-        fields = ('name',)
+        fields = ('id', 'name',)
 
 
 class ItemLikeSerializer(serializers.ModelSerializer):

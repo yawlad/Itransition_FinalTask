@@ -1,4 +1,4 @@
-from rest_framework import generics, response, status
+from rest_framework import generics, response, status, filters
 from .models import Item, ItemTag, ItemLike, ItemComment
 from .serializers import ItemSerializer, ItemTagSerializer, ItemLikeSerializer, ItemCommentSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -16,6 +16,8 @@ class ItemListCreateView(generics.ListCreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [IsAuthenticatedOrReadOnly,]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'collection__name', 'collection__description', 'comments__content']
 
     def perform_create(self, serializer):
         new_tags = serializer.validated_data.pop('new_tags')

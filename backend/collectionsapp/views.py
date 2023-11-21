@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, filters
 from config.permissions import IsSuperUserOrOwner
 from .models import Collection, CollectionTheme
 from .serializers import CollectionSerializer, CollectionThemeSerializer
