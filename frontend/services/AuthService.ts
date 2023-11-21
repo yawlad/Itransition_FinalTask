@@ -22,8 +22,17 @@ const AuthService = {
         return response.data as User;
       })
       .catch((error) => {
-        console.error(error);
-        return {};
+        throw error;
+      });
+  },
+  logout() {
+    return instance
+      .post(`/auth/logout/`)
+      .then((response) => {
+        return true;
+      })
+      .catch((error) => {
+        throw error;
       });
   },
 };

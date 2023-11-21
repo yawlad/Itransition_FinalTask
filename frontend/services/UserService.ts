@@ -31,8 +31,7 @@ const UserService = {
         return response.data as User;
       })
       .catch((error) => {
-        console.error(error);
-        return {};
+        throw error;
       });
   },
 };
