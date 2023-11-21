@@ -12,6 +12,10 @@ class SessionStore {
     this.user = user;
   }
 
+  getUser() {
+    return this.user as User;
+  }
+
   isLoggedIn() {
     return !!this.user;
   }
