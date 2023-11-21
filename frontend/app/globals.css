@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button-standart {
+  @apply px-4 py-1 shadow-md rounded-md cursor-pointer border duration-200 hover:scale-105;
+}
