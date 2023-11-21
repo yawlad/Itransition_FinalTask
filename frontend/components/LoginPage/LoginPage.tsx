@@ -3,6 +3,7 @@ import { useState } from "react";
 import InputBlock from "../InputBlock";
 import AuthService from "@/services/AuthService";
 import sessionStore from "@/stores/SessionStore";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [userData, setUserData] = useState({
@@ -19,9 +20,14 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    AuthService.login(userData).then((user) => {
-      sessionStore.setUser(user);
-    });
+    AuthService.login(userData)
+      .then((user) => {
+        sessionStore.setUser(user);
+      })
+      .catch((error: Error) => {
+        console.log(error);
+        setError(error.message);
+      });
   };
 
   return (
@@ -33,8 +39,8 @@ export default function LoginPage() {
         <h3 className="text-3xl text-center font-semibold">Sign In</h3>
         <hr className="border border-secondary w-full mb-4" />
         <InputBlock
-          header="Email"
-          placeholder="Email"
+          header="Username"
+          placeholder="Username"
           type="text"
           onChange={(val) => handleInputChange("username", val)}
         />
@@ -48,6 +54,16 @@ export default function LoginPage() {
         <button type="submit" className="button-standart">
           Sign In
         </button>
+        <div className="text-xs text-gray-400">
+          or{" "}
+          <Link
+            className="font-extrabold underline text-black"
+            href={"/register/"}
+          >
+            REGISTER
+          </Link>
+          , if you don't have an account
+        </div>
       </form>
     </div>
   );
