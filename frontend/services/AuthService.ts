@@ -3,7 +3,7 @@ import { instance } from "./service.api.config";
 import User from "@/types/User";
 import LoginData from "@/types/LoginData";
 
-const UserService = {
+const AuthService = {
   register(data: RegisterData) {
     return instance
       .post("/auth/register/", data)
@@ -28,4 +28,4 @@ const UserService = {
   },
 };
 
-export default UserService;
+export default AuthService;
