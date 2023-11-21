@@ -2,6 +2,7 @@ import RegisterData from "@/types/RegisterData";
 import { instance } from "./service.api.config";
 import User from "@/types/User";
 import LoginData from "@/types/LoginData";
+import { AxiosError } from "axios";
 
 const AuthService = {
   register(data: RegisterData) {
@@ -11,8 +12,7 @@ const AuthService = {
         return response.data as User;
       })
       .catch((error) => {
-        console.error(error);
-        return [];
+        
       });
   },
   login(data: LoginData) {
@@ -21,8 +21,10 @@ const AuthService = {
       .then((response) => {
         return response.data as User;
       })
-      .catch((error) => {
-        throw error;
+      .catch((error: AxiosError) => {
+        if (error.response?.status == 400) throw Error("Invalid credentials");
+        console.error(error);
+        return null;
       });
   },
   logout() {
