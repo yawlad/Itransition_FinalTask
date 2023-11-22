@@ -1,5 +1,6 @@
+import CollectionPage from "@/components/CollectionPage/CollectionPage";
 
-
-export default function Collection() {
-  return <>Collection</>
-}
+const Collection = ({ params }: { params: { id: number } }) => {
+  return <CollectionPage id={params.id} />;
+};
+export default Collection;
