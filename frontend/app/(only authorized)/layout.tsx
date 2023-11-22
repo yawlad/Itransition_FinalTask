@@ -10,7 +10,7 @@ interface LayoutProps {
 
 const Layout = observer(({ children }: LayoutProps) => {
   const router = useRouter();
-  if (sessionStore.isLoggedIn()) {
+  if (!sessionStore.isLoggedIn()) {
     router.replace("/");
     return;
   }
