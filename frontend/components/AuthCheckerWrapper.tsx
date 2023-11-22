@@ -1,8 +1,6 @@
 "use client";
 
-import { observer } from "mobx-react-lite";
 import sessionStore from "@/stores/SessionStore";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import UserService from "@/services/UserService";
 
@@ -24,7 +22,7 @@ const AuthCheckerWrapper = ({ children }: AuthCheckerWrapperProps) => {
         setLoading(false);
       });
   }, []);
-  return <>{loading ? "" : children}</>;
+  return <>{loading ? <div>LOADING...</div> : children}</>;
 };
 
 export default AuthCheckerWrapper;
