@@ -34,6 +34,16 @@ const UserService = {
         throw error;
       });
   },
+  patchMe(data: { username?: string; email?: string; new_password?: string }) {
+    return instance
+      .patch(`/users/me/`, data)
+      .then((response) => {
+        return response.data as User;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  },
 };
 
 export default UserService;

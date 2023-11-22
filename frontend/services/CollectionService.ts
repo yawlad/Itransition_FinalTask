@@ -24,6 +24,16 @@ const CollectionService = {
         return {};
       });
   },
+  deleteCollection(id: number) {
+    return instance
+      .delete(`/collections/${id}/`)
+      .then((response) => {
+        return;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
 };
 
 export default CollectionService;
