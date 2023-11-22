@@ -23,10 +23,8 @@ class ItemListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = super().get_queryset()
         tag = self.request.query_params.get('tag', None)
-        print(tag)
         if tag:
             queryset = queryset.filter(tags__name=tag)
-        print(queryset)
         return queryset
 
     def perform_create(self, serializer):
