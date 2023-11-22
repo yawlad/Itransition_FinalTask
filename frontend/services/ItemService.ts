@@ -3,9 +3,9 @@ import { instance } from "./service.api.config";
 import Tag from "@/types/Tag";
 
 const ItemService = {
-  getItems() {
+  getItems(params?: { search: string }) {
     return instance
-      .get("/items/")
+      .get("/items/", { params })
       .then((response) => {
         return response.data as Item[];
       })

@@ -29,8 +29,8 @@ const AuthorizedHeaderPart = ({ username }: AuthorizedHeaderPartData) => {
         <div className="w-3/4 border-b-[2px] border-[#333] absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-0 -rotate-45 origin-bottom-left"></div>
       </div>
       <div
-        className={`absolute bg-white z-50 top-0 right-2 duration-300 flex flex-col gap-1 p-4 shadow-md rounded-md rounded-t-none ${
-          showMenu ? "opacity-100 top-full" : "opacity-0 top-1/2"
+        className={`absolute bg-white z-50 top-0 right-2 duration-300 flex flex-col gap-1 p-4 shadow-md rounded-md rounded-t-none origin-top-right ${
+          showMenu ? "opacity-100 top-full" : "opacity-0 top-1/2 scale-0 "
         }`}
       >
         <Link className="mb-2" href={"/profile/"}>

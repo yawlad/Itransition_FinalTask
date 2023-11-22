@@ -8,14 +8,17 @@ import CollectionService from "@/services/CollectionService";
 import Collection from "@/types/Collection";
 import Item from "@/types/Item";
 import ItemService from "@/services/ItemService";
-import Tag from "@/types/Tag";
 import compareByDates from "@/utils/compareDates";
+import searchStore from "@/stores/SearchStore";
+import TagCloud from "../TagCloud/TagCloud";
+import { observer } from "mobx-react-lite";
 
-const MainPage = () => {
-  let [largestCollections, setLargestCollections] = useState<Collection[]>([]);
-  let [lastItems, setLastItems] = useState<Item[]>([]);
-  let [tags, setTags] = useState<Tag[]>([]);
-
+const MainPage = observer(() => {
+  const [largestCollections, setLargestCollections] = useState<Collection[]>(
+    []
+  );
+  const [lastItems, setLastItems] = useState<Item[]>([]);
+  const tags = searchStore.getItemTags();
   useEffect(() => {
     CollectionService.getCollections().then((collections) => {
       setLargestCollections(
@@ -30,18 +33,11 @@ const MainPage = () => {
           .slice(-5)
       );
     });
-    ItemService.getTags().then((tags) => {
-      setTags(tags.slice(-50));
-    });
   }, []);
 
   return (
     <main>
-      <div className="container m-auto flex flex-row flex-wrap gap-2 p-10 pt-0 justify-center">
-        {tags.map((tag) => {
-          return <TagItem tagName={tag.name} key={`tag_${tag.id}`} />;
-        })}
-      </div>
+      <TagCloud tags={tags} />
       <h2 className="text-4xl font-semibold text-center my-4">Last items</h2>
       <div className="container m-auto flex flex-row-reverse flex-wrap gap-8 p-10 justify-around">
         {lastItems.map((item) => {
@@ -63,6 +59,6 @@ const MainPage = () => {
       </div>
     </main>
   );
-};
+});
 
 export default MainPage;

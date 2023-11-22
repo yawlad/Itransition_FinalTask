@@ -1,9 +1,8 @@
+import Tag from "@/types/Tag";
 import TagItem from "./TagItem";
 
-const coll = [1, 2, 3, 4, 5, 6, , 7, 8, 9, 10];
-
 interface TagCloudData {
-  tags: string[];
+  tags: Tag[];
 }
 
 const TagCloud = ({ tags }: TagCloudData) => {
@@ -12,7 +11,7 @@ const TagCloud = ({ tags }: TagCloudData) => {
       {tags.map((tag) => {
         return (
           <>
-            <TagItem tagName={tag} />
+            <TagItem tagName={tag.name} />
           </>
         );
       })}

@@ -14,7 +14,7 @@ interface ProfileTableRowProps {
 
 const ProfileTableRow = ({ name, value }: ProfileTableRowProps) => {
   return (
-    <div className="flex ">
+    <div className="flex">
       <div className="w-1/2 border-b-2 bg-gray-50 p-2 hyphens-auto">
         {name}:
       </div>
