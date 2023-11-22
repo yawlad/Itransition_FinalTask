@@ -3,7 +3,7 @@ import { instance } from "./service.api.config";
 import Tag from "@/types/Tag";
 
 const ItemService = {
-  getItems(params?: { search: string }) {
+  getItems(params?: { search?: string; tag?: string }) {
     return instance
       .get("/items/", { params })
       .then((response) => {
