@@ -21,7 +21,7 @@ const CollectionService = {
       })
       .catch((error) => {
         console.error(error);
-        return {};
+        return undefined;
       });
   },
   deleteCollection(id: number) {
