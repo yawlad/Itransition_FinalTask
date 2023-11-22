@@ -25,14 +25,14 @@ const CollectionCard = ({ collection }: CollectionCardData) => {
         priority={true}
       />
       <div className="flex flex-col gap-2 p-6 relative w-full">
-        <p className="absolute top-0 right-0 rounded-md bg-gray-50 px-2 py-1 translate-x-2 -translate-y-1/4">
+        <div className="absolute top-0 right-0 rounded-md bg-gray-50 px-2 py-1 translate-x-2 -translate-y-1/4">
           {collection.theme.name}
-        </p>
+        </div>
         <h3 className="text-2xl font-semibold">{collection.name}</h3>
 
-        <p className="flex-grow-[1]">
+        <div className="flex-grow-[1]">
           <MarkdownWrapper>{collection.description}</MarkdownWrapper>
-        </p>
+        </div>
       </div>
     </Link>
   );

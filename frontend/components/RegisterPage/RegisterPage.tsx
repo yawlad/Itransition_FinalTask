@@ -6,6 +6,7 @@ import RegisterData from "@/types/RegisterData";
 import AuthService from "@/services/AuthService";
 import sessionStore from "@/stores/SessionStore";
 import validateEmail from "@/utils/validateEmail";
+import { AxiosError } from "axios";
 
 const RegisterPage = () => {
   const [userData, setUserData] = useState<RegisterData>({
@@ -43,15 +44,33 @@ const RegisterPage = () => {
     if (Object.values(newValidationErrors).some((error) => error !== ""))
       return;
 
-    AuthService.register(userData).then((user) => {
-      AuthService.login(userData)
-        .then((user) => {
+    AuthService.register(userData)
+      .then((user) => {
+        AuthService.login(userData).then((user) => {
           sessionStore.setUser(user);
-        })
-        .catch((error) => {
-          console.error(error);
         });
-    });
+      })
+      .catch((error: AxiosError) => {
+        const errorData = error.response?.data as {
+          username?: string;
+          email?: string;
+        };
+        const registerErrors = {
+          username: "",
+          email: "",
+          password: "",
+          password_repeat: "",
+        };
+        console.log(errorData);
+        if (errorData.username)
+          registerErrors.username = "This username is already in use";
+        if (
+          (error.response?.data as { username?: string; email?: string }).email
+        )
+          registerErrors.email = "This email is already in use";
+        setValidationErrors(registerErrors);
+        return;
+      });
   };
 
   return (

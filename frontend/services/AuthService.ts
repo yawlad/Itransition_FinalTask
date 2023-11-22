@@ -3,6 +3,7 @@ import { instance } from "./service.api.config";
 import User from "@/types/User";
 import LoginData from "@/types/LoginData";
 import { AxiosError } from "axios";
+import handleAxiosError from "@/utils/handleAxiosError";
 
 const AuthService = {
   register(data: RegisterData) {
@@ -11,8 +12,10 @@ const AuthService = {
       .then((response) => {
         return response.data as User;
       })
-      .catch((error) => {
-        
+      .catch((error: AxiosError) => {
+        if (error.response?.status == 400) {
+          throw error;
+        }
       });
   },
   login(data: LoginData) {
@@ -22,8 +25,9 @@ const AuthService = {
         return response.data as User;
       })
       .catch((error: AxiosError) => {
-        if (error.response?.status == 400) throw Error("Invalid credentials");
-        console.error(error);
+        if (error.response?.status == 400)
+          throw new Error("Invalid credentials");
+        if (error.response?.status == 403) throw new Error("User is blocked");
         return null;
       });
   },
@@ -33,9 +37,7 @@ const AuthService = {
       .then((response) => {
         return true;
       })
-      .catch((error) => {
-        throw error;
-      });
+      .catch(handleAxiosError);
   },
 };
 

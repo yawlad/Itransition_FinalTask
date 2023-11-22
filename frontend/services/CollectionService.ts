@@ -1,3 +1,4 @@
+import handleAxiosError from "@/utils/handleAxiosError";
 import { instance } from "./service.api.config";
 import Collection from "@/types/Collection";
 
@@ -8,10 +9,7 @@ const CollectionService = {
       .then((response) => {
         return response.data as Collection[];
       })
-      .catch((error) => {
-        console.error(error);
-        return [];
-      });
+      .catch(handleAxiosError);
   },
   getCollection(id: number) {
     return instance
@@ -19,10 +17,7 @@ const CollectionService = {
       .then((response) => {
         return response.data as Collection;
       })
-      .catch((error) => {
-        console.error(error);
-        return undefined;
-      });
+      .catch(handleAxiosError);
   },
   deleteCollection(id: number) {
     return instance
@@ -30,9 +25,7 @@ const CollectionService = {
       .then((response) => {
         return;
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(handleAxiosError);
   },
 };
 

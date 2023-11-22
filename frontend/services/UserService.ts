@@ -1,5 +1,7 @@
+import { AxiosError } from "axios";
 import { instance } from "./service.api.config";
 import User from "@/types/User";
+import handleAxiosError from "@/utils/handleAxiosError";
 
 const UserService = {
   getUsers() {
@@ -8,10 +10,7 @@ const UserService = {
       .then((response) => {
         return response.data as User[];
       })
-      .catch((error) => {
-        console.error(error);
-        return [];
-      });
+      .catch(handleAxiosError);
   },
   getUser(id: number) {
     return instance
@@ -19,10 +18,26 @@ const UserService = {
       .then((response) => {
         return response.data as User;
       })
-      .catch((error) => {
-        console.error(error);
-        return {};
-      });
+      .catch(handleAxiosError);
+  },
+  patchUser(
+    id: number,
+    data: { is_blocked?: boolean; is_superuser?: boolean }
+  ) {
+    return instance
+      .patch(`/users/${id}/`, data)
+      .then((response) => {
+        return response.data as User;
+      })
+      .catch(handleAxiosError);
+  },
+  deleteUser(id: number) {
+    return instance
+      .delete(`/users/${id}/`)
+      .then((response) => {
+        return;
+      })
+      .catch(handleAxiosError);
   },
   getMe() {
     return instance
@@ -30,9 +45,7 @@ const UserService = {
       .then((response) => {
         return response.data as User;
       })
-      .catch((error) => {
-        throw error;
-      });
+      .catch(handleAxiosError);
   },
   patchMe(data: { username?: string; email?: string; new_password?: string }) {
     return instance
@@ -40,9 +53,7 @@ const UserService = {
       .then((response) => {
         return response.data as User;
       })
-      .catch((error) => {
-        throw error;
-      });
+      .catch(handleAxiosError);
   },
 };
 

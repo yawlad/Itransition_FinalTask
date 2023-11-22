@@ -12,11 +12,11 @@ const ItemCard = ({ item }: CollectionCardData) => {
       className="flex flex-col gap-2 border p-4 pb-5 rounded-md relative bg-white"
     >
       <h4 className="text-2xl text-center font-semibold">{item.name}</h4>
-      <p className="text-center">{item.collection.name}</p>
+      <h5 className="text-center">{item.collection.name}</h5>
 
-      <p className="absolute bottom-0 right-0 translate-y-1/2 translate-x-4 px-2 py-1 rounded-md text-sm bg-white border">
+      <div className="absolute bottom-0 right-0 translate-y-1/2 translate-x-4 px-2 py-1 rounded-md text-sm bg-white border">
         By {item.collection.creator.username}
-      </p>
+      </div>
     </Link>
   );
 };

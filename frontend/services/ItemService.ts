@@ -1,6 +1,7 @@
 import Item from "@/types/Item";
 import { instance } from "./service.api.config";
 import Tag from "@/types/Tag";
+import handleAxiosError from "@/utils/handleAxiosError";
 
 const ItemService = {
   getItems(params?: { search?: string; tag?: string }) {
@@ -9,10 +10,7 @@ const ItemService = {
       .then((response) => {
         return response.data as Item[];
       })
-      .catch((error) => {
-        console.error(error);
-        return [];
-      });
+      .catch(handleAxiosError);
   },
   getItem(id: number) {
     return instance
@@ -20,10 +18,7 @@ const ItemService = {
       .then((response) => {
         return response.data as Item;
       })
-      .catch((error) => {
-        console.error(error);
-        return {};
-      });
+      .catch(handleAxiosError);
   },
   getTags() {
     return instance
@@ -31,10 +26,7 @@ const ItemService = {
       .then((response) => {
         return response.data as Tag[];
       })
-      .catch((error) => {
-        console.error(error);
-        return [];
-      });
+      .catch(handleAxiosError);
   },
 };
 

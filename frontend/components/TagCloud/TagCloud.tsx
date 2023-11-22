@@ -9,7 +9,7 @@ const TagCloud = ({ tags }: TagCloudData) => {
   return (
     <div className="container m-auto flex flex-row flex-wrap gap-2 p-10 pt-0 justify-center">
       {tags.map((tag) => {
-        return <TagItem tag={tag} />;
+        return <TagItem tag={tag} key={tag.id} />;
       })}
     </div>
   );

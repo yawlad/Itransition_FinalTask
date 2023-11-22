@@ -25,7 +25,6 @@ const LoginPage = () => {
         sessionStore.setUser(user);
       })
       .catch((error: Error) => {
-        console.log(error);
         setError(error.message);
       });
   };

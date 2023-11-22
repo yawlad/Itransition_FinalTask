@@ -96,8 +96,8 @@ const ProfileEditTable = ({ user, setEditMode }: ProfileEditTableProps) => {
         />
       </div>
       <div className="text-center text-red-400 flex flex-col">
-        {Object.values(validationErrors).map((error) => (
-          <div>{error}</div>
+        {Object.entries(validationErrors).map(([errorKey, error]) => (
+          <div key={errorKey}>{error}</div>
         ))}
       </div>
       <div className="flex gap-8">
