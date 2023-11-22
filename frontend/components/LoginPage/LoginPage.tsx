@@ -5,7 +5,7 @@ import AuthService from "@/services/AuthService";
 import sessionStore from "@/stores/SessionStore";
 import Link from "next/link";
 
-export default function LoginPage() {
+const LoginPage = () => {
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -18,7 +18,7 @@ export default function LoginPage() {
     setError("");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     AuthService.login(userData)
       .then((user) => {
@@ -67,4 +67,6 @@ export default function LoginPage() {
       </form>
     </div>
   );
-}
+};
+
+export default LoginPage;

@@ -5,8 +5,9 @@ import Link from "next/link";
 import RegisterData from "@/types/RegisterData";
 import AuthService from "@/services/AuthService";
 import sessionStore from "@/stores/SessionStore";
+import validateEmail from "@/utils/validateEmail";
 
-export default function RegisterPage() {
+const RegisterPage = () => {
   const [userData, setUserData] = useState<RegisterData>({
     email: "",
     username: "",
@@ -26,12 +27,7 @@ export default function RegisterPage() {
     setValidationErrors({ ...validationErrors, [name]: "" });
   };
 
-  const validateEmail = (email: string) => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(email);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newValidationErrors = {
       email: validateEmail(userData.email) ? "" : "Enter correct email",
@@ -112,4 +108,6 @@ export default function RegisterPage() {
       </form>
     </div>
   );
-}
+};
+
+export default RegisterPage;
