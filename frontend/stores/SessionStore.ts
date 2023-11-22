@@ -23,6 +23,15 @@ class SessionStore {
   isSuperUser() {
     return this.user?.is_superuser;
   }
+
+  deleteCollection(id: number) {
+    if (this.user) {
+      this.user.collections = this.user?.collections.filter(
+        (collection) => collection.id !== id
+      );
+    }
+    this.user = this.user;
+  }
 }
 
 const sessionStore = new SessionStore();
