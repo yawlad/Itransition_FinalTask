@@ -24,7 +24,7 @@ class CollectionCreatorSerializer(serializers.ModelSerializer):
 class CollectionItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ('id', 'name', "custom_fields")
+        fields = ('id', 'name', "custom_fields", "likes")
 
 
 class CollectionSerializer(serializers.ModelSerializer):
