@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import AuthCheckerWrapper from "@/components/AuthCheckerWrapper";
-import Link from "next/link";
 
 config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
