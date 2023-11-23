@@ -54,13 +54,28 @@ def is_synced_with_field_classes(fields_classes, fields):
     return is_matching
 
 
-def filter_fields(fields_classes, fields):
-    filtered_result = []
+def filter_fields(fields, field_classes):
+    result = []
 
-    for item in fields_classes:
-        filter_item = next(
-            (f_item for f_item in fields if f_item["name"] == item["name"]), None)
-        if filter_item:
-            filtered_result.append({**item, **filter_item})
+    for filter_item in field_classes:
+        matching_item = next(
+            (item for item in fields if item['name'] == filter_item['name']), None)
 
-    return filtered_result
+        if matching_item:
+            result.append({
+                'name': matching_item['name'],
+                'type': matching_item['type'],
+                'value': matching_item.get('value', ''),
+            })
+        else:
+            value = ""
+            if filter_item["type"] == "checkbox":
+                value = "false"
+            if filter_item["type"] == "date":
+                value = "01.01.1900"
+            if filter_item["type"] == "integer":
+                value = "0"
+            result.append(
+                {"name": filter_item['name'], "type": filter_item["type"], "value": value})
+
+    return result

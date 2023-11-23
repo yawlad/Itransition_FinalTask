@@ -45,6 +45,13 @@ class CollectionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView)
         if image:
             direct_link = create_image_link(self.request.data.get('name'),
                                             image)
+        custom_fields_classes = serializer.validated_data.get(
+            "custom_fields_classes")
+        if custom_fields_classes != None:
+            for item in instance.items.all():
+                item.custom_fields = filter_fields(item.custom_fields,
+                                                   custom_fields_classes)
+                item.save()
 
         serializer.save(creator=self.request.user, image_url=direct_link)
         return super().perform_update(serializer)
