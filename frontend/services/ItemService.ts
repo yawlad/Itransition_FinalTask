@@ -21,14 +21,14 @@ const ItemService = {
       })
       .catch(handleAxiosError);
   },
-  postItem(data) {
-    return instance
-      .delete(`/items/`)
-      .then((response) => {
-        return true;
-      })
-      .catch(handleAxiosError);
-  },
+  // postItem(data) {
+  //   return instance
+  //     .delete(`/items/`)
+  //     .then((response) => {
+  //       return true;
+  //     })
+  //     .catch(handleAxiosError);
+  // },
   patchItem(id: number) {
     return instance
       .delete(`/items/${id}`)

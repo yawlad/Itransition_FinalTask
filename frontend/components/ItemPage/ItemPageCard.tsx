@@ -25,7 +25,6 @@ interface ItemPageCardProps {
 
 const ItemPageCard = observer(
   ({ item, setEditMode, setItem }: ItemPageCardProps) => {
-    
     const router = useRouter();
     const mergedFields = mergeArrays(
       item.collection.custom_fields_classes,
@@ -160,7 +159,10 @@ const ItemPageCard = observer(
             </div>
             <div className="p-2 flex flex-col gap-2">
               {item.comments.map((comment) => (
-                <div className="p-4 bg-gray-50 relative rounded-md">
+                <div
+                  key={comment.id}
+                  className="p-4 bg-gray-50 relative rounded-md"
+                >
                   <div className="absolute bg-gray-50 top-0 right-0 -translate-y-1/2 py-1 px-3 rounded-md">
                     {comment.creator.username}
                   </div>

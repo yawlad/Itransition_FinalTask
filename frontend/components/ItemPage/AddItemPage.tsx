@@ -22,9 +22,9 @@ const AddItemPage = ({ collectionId }: AddItemPageProps) => {
 
   const submitHandler = (event: FormEvent) => {
     event.preventDefault();
-    ItemService.postItem(itemData).then((item) => {
-      router.replace("/profile/");
-    });
+    // ItemService.postItem(itemData).then((item) => {
+    //   router.replace("/profile/");
+    // });
   };
 
   return (

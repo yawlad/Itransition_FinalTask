@@ -61,7 +61,7 @@ const LoginPage = () => {
           >
             REGISTER
           </Link>
-          , if you don't have an account
+          , if you dont have an account
         </div>
       </form>
     </div>

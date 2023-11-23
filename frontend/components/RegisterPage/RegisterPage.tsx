@@ -122,7 +122,7 @@ const RegisterPage = () => {
           >
             LOGIN
           </Link>
-          , if you've already got an account
+          , if youve already got an account
         </div>
       </form>
     </div>
