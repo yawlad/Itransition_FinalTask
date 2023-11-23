@@ -1,4 +1,6 @@
+import AddItemPage from "@/components/ItemPage/AddItemPage";
+
 const AddItem = ({ params }: { params: { id: number } }) => {
-  return <h1>AddItem for coll {params.id}</h1>;
+  return <AddItemPage collectionId={params.id} />;
 };
 export default AddItem;

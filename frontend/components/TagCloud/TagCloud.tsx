@@ -7,7 +7,7 @@ interface TagCloudData {
 
 const TagCloud = ({ tags }: TagCloudData) => {
   return (
-    <div className="container m-auto flex flex-row flex-wrap gap-2 p-10 pt-0 justify-center">
+    <div className="container m-auto flex flex-row flex-wrap gap-2 p-4 justify-center">
       {tags.map((tag) => {
         return <TagItem tag={tag} key={tag.id} />;
       })}
