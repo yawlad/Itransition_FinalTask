@@ -68,7 +68,7 @@ const CollectionPageCardEdit = ({
 
   const handleAddFieldButton = (event: React.MouseEvent) => {
     event.preventDefault();
-    editData.custom_fields_classes?.push({ name: "", type: "integer", id: -1 });
+    editData.custom_fields_classes?.push({ name: "", type: "integer"});
     setEditData({ ...editData });
   };
 

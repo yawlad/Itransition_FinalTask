@@ -68,7 +68,7 @@ const CollectionPageCard = ({
         <div>
           {collection.custom_fields_classes.map((field) => (
             <UniversalItemRow
-              key={`custom_${field.id}`}
+              key={`custom_${field.name}`}
               name={field.name}
               value={field.type}
             />
@@ -116,7 +116,7 @@ const CollectionPageCard = ({
               </div>
               {fields.map((field) => {
                 return (
-                  <div key={`${item.id}_${field.id}`}>
+                  <div key={`${item.id}_${field.name}`}>
                     <UniversalItemRow name={field.name} value={field.value} />
                   </div>
                 );
