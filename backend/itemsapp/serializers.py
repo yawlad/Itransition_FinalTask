@@ -78,7 +78,7 @@ class ItemSerializer(serializers.ModelSerializer):
         return representation
 
     def validate_custom_fields(self, value):
-        allowed_field_keys = ['name', 'value']
+        allowed_field_keys = ['name', 'value', 'type']
         if type(value) != list:
             raise serializers.ValidationError(
                 "Must be correct JSON list")
@@ -101,7 +101,6 @@ class ItemSerializer(serializers.ModelSerializer):
         if not is_unique_fields(value):
             raise serializers.ValidationError(
                 f"Names must unique")
-
         return value
 
     def validate_new_tags(self, value):

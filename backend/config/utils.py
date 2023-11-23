@@ -25,7 +25,7 @@ def is_type_comparable_with_value(value, type):
         except ValueError:
             return False
     if (type == 'checkbox'):
-        if value not in ('true', 'false'):
+        if (value not in ["true", "false"]):
             return False
     if (type == 'date'):
         try:
@@ -46,33 +46,11 @@ def have_allowed_fields(field, allowed_field_keys):
     return True
 
 
-def get_merged_fields(fields_classes, fields):
-    merged_fields = []
-
-    for fields_class in fields_classes:
-        for field in fields:
-            if fields_class["name"] == field["name"]:
-                merged_field = fields_class.copy()
-                merged_field.update(field)
-                merged_fields.append(merged_field)
-
-    return merged_fields
-
-
 def is_synced_with_field_classes(fields_classes, fields):
-    names_classes = {item["name"] for item in fields_classes}
-    names_fields = {item["name"] for item in fields}
-    print(names_classes)
-    if len(fields) != len(names_classes):
-        return False
-    if not names_fields.issubset(names_classes):
-        return False
-
-    for field in get_merged_fields(fields_classes, fields):
-        if not is_type_comparable_with_value(field["value"], field["type"]):
-            return False
-
-    return True
-
+    is_matching = all(
+        item1["name"] == item2["name"] and item1["type"] == item2["type"]
+        for item1, item2 in zip(fields_classes, fields)
+    )
+    return is_matching
 
 
