@@ -41,7 +41,11 @@ const CollectionService = {
   },
   patchCollection(id: number, data: PutCollectionData) {
     return instance
-      .patch(`/collections/${id}/`, data)
+      .patch(`/collections/${id}/`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         return response.data as Collection;
       })
@@ -49,7 +53,11 @@ const CollectionService = {
   },
   postCollection(data: PostCollectionData) {
     return instance
-      .post("/collections/", data)
+      .post("/collections/", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         return response.data as Collection;
       })

@@ -68,7 +68,7 @@ const CollectionPageCardEdit = ({
 
   const handleAddFieldButton = (event: React.MouseEvent) => {
     event.preventDefault();
-    editData.custom_fields_classes?.push({ name: "", type: "integer"});
+    editData.custom_fields_classes?.push({ name: "", type: "integer" });
     setEditData({ ...editData });
   };
 
@@ -76,6 +76,11 @@ const CollectionPageCardEdit = ({
     event.preventDefault();
     editData.custom_fields_classes?.splice(index, 1);
     setEditData({ ...editData });
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) setEditData({ ...editData, ["image"]: file });
   };
 
   useEffect(() => {
@@ -86,14 +91,15 @@ const CollectionPageCardEdit = ({
 
   return (
     <form
-      className="flex flex-col gap-4 justify-center items-center border p-6 relative w-full"
+      className="flex flex-col gap-4 justify-center items-center border p-6 relative w-full mt-6 md:mt-0"
       onSubmit={submitHandler}
     >
-      <div className="absolute bottom-full bg-white shadow-md border rounded-md px-4 py-1 translate-y-1/2">
+      <div className="absolute bottom-full bg-white shadow-md border rounded-md px-4 py-1 translate-y-1/2 w-[90%]">
         <select
           name="theme"
           value={editData.theme}
           onChange={(e) => handleInputChange("theme", e.target.value)}
+          className="w-full"
         >
           {themes.map((theme) => (
             <option key={theme.name} value={theme.id}>
@@ -111,17 +117,13 @@ const CollectionPageCardEdit = ({
           alt=""
           priority={true}
         />
-        <input
-          className="max-w-xs"
-          type="file"
-          onChange={(e) => handleInputChange("image", e.target.value)}
-        />
+        <input className="max-w-xs" type="file" onChange={handleImageChange} />
       </div>
 
       <div className="w-full flex flex-col gap-2">
         <h2 className="font-semibold border-b-2 w-full text-center p-2 bg-gray-100">
           <input
-            className="text-4xl text-center"
+            className="text-4xl text-center w-full"
             type="text"
             value={editData.name}
             onChange={(e) => handleInputChange("name", e.target.value)}

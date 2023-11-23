@@ -16,6 +16,8 @@ import mergeArrays from "@/utils/mergeArrays";
 import ItemService from "@/services/ItemService";
 import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
+import { useState } from "react";
+import Comment from "@/types/Comment";
 
 interface ItemPageCardProps {
   item: Item;
@@ -30,6 +32,8 @@ const ItemPageCard = observer(
       item.collection.custom_fields_classes,
       item.custom_fields
     );
+
+    const [comment, setComment] = useState<string>();
 
     function handleDeleteButton(id: any): void {
       ItemService.deleteItem(id).then(() => {
@@ -56,9 +60,19 @@ const ItemPageCard = observer(
       });
     }
 
+    function handlePostComment(): void {
+      if (comment)
+        ItemService.postComment({ content: comment, item: item.id }).then(
+          (commentRes) => {
+            item.comments.push(commentRes);
+            setItem({ ...item });
+          }
+        );
+    }
+
     return (
       <div className="flex flex-col gap-4 justify-center items-center border p-6 relative w-full">
-        <div className="text-center p-4 font-semibold bg-gray-100 w-full text-2xl">
+        <div className="text-center p-4 font-semibold bg-gray-100 w-full text-2xl break-all">
           {item.name}
         </div>
         <div className="w-full">
@@ -175,10 +189,12 @@ const ItemPageCard = observer(
             <>
               <hr />
               <div className="p-4 bg-gray-50 relative rounded-md mt-2">
-                <textarea className="bg-gray-100 p-2 w-full rounded-md">
-                  asdsad
-                </textarea>
-                <button className="button-green" type="submit">
+                <textarea
+                  className="bg-gray-100 p-2 w-full rounded-md"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <button className="button-green" onClick={handlePostComment}>
                   Post <FontAwesomeIcon icon={faComment} />
                 </button>
               </div>

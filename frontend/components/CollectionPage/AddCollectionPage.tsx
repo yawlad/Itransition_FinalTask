@@ -32,14 +32,19 @@ const CollectionPageCardEdit = () => {
 
   const submitHandler = (event: FormEvent) => {
     event.preventDefault();
+
     CollectionService.postCollection(editData).then((collectionRes) => {
       sessionStore.addCollection(collectionRes);
       router.replace("/profile/");
     });
   };
 
-  const handleInputChange = (name: string, value: string) => {
-    setEditData({ ...editData, [name]: value });
+  const handleInputChange = (name: string, value: any) => {
+    if (value != null) setEditData({ ...editData, [name]: value });
+  };
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) setEditData({ ...editData, ["image"]: file });
   };
 
   const handleCustomFieldsChange = (
@@ -83,8 +88,9 @@ const CollectionPageCardEdit = () => {
         className="flex flex-col gap-4 justify-center items-center border p-6 relative w-full"
         onSubmit={submitHandler}
       >
-        <div className="absolute bottom-full bg-white shadow-md border rounded-md px-4 py-1 translate-y-1/2">
+        <div className="absolute bottom-full bg-white shadow-md border rounded-md px-4 py-1 translate-y-1/2 w-[90%]">
           <select
+            className="w-full"
             name="theme"
             value={editData.theme}
             onChange={(e) => handleInputChange("theme", e.target.value)}
@@ -108,14 +114,14 @@ const CollectionPageCardEdit = () => {
           <input
             className="max-w-xs"
             type="file"
-            onChange={(e) => handleInputChange("image", e.target.value)}
+            onChange={handleImageChange}
           />
         </div>
 
         <div className="w-full flex flex-col gap-2">
           <h2 className="font-semibold border-b-2 w-full text-center p-2 bg-gray-100">
             <input
-              className="text-4xl text-center"
+              className="text-4xl text-center w-full"
               type="text"
               value={editData.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
@@ -185,7 +191,7 @@ const CollectionPageCardEdit = () => {
               </div>
             ))}
             <button
-              className="button-standart text-2xl w-fit m-auto"
+              className="button-standart text-2xl w-fit m-auto mt-2"
               onClick={handleAddFieldButton}
             >
               +

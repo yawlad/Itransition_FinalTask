@@ -1,8 +1,8 @@
 "use client";
 import User from "@/types/User";
-import formatDateJoined from "@/utils/formatDate";
 import { observer } from "mobx-react-lite";
 import UniversalItemRow from "../UniversalItemRow";
+import formatDate from "@/utils/formatDate";
 
 interface ProfileTableProps {
   user: User;
@@ -16,24 +16,10 @@ const ProfileTable = observer(({ user, setEditMode }: ProfileTableProps) => {
       <div className="flex flex-col">
         <UniversalItemRow name="Username" value={user.username} />
         <UniversalItemRow name="Email" value={user.email} />
-        <UniversalItemRow name="Join date" value={user.date_joined} />
-        {/* <UniversalItemRow
-          name="Items amount"
-          value={user.collections.reduce((prev, collection) => {
-            return prev + collection.items.length;
-          }, 0)}
-        />
         <UniversalItemRow
-          name="Likes amount"
-          value={user.collections.reduce((prev, collection) => {
-            return (
-              prev +
-              collection.items.reduce((prevLikes, item) => {
-                return prevLikes + item.likes.length;
-              }, 0)
-            );
-          }, 0)}
-        /> */}
+          name="Join date"
+          value={formatDate(user.date_joined)}
+        />
       </div>
       <div
         className="button-standart text-center"

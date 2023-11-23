@@ -105,13 +105,9 @@ const CollectionPageCard = ({
       <hr className="my-6 border-2 w-full" />
       <div className="w-full flex flex-col gap-4">
         {collection.items.map((item) => {
-          const fields = mergeArrays(
-            collection.custom_fields_classes,
-            item.custom_fields
-          );
           return (
             <Link href={`/item/${item.id}`} key={item.id}>
-              <div className="text-center p-4 font-semibold bg-gray-200 text-2xl">
+              <div className="text-center p-4 font-semibold bg-gray-200 text-2xl break-all">
                 {item.name}
               </div>
               <UniversalItemRow
@@ -126,7 +122,7 @@ const CollectionPageCard = ({
               <div className="text-center p-4 font-semibold bg-gray-100">
                 Custom Fields:
               </div>
-              {fields.map((field) => {
+              {item.custom_fields.map((field) => {
                 return (
                   <div key={`${item.id}_${field.name}`}>
                     <UniversalItemRow name={field.name} value={field.value} />

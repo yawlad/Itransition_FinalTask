@@ -3,6 +3,7 @@ import { instance } from "./service.api.config";
 import Tag from "@/types/Tag";
 import handleAxiosError from "@/utils/handleAxiosError";
 import Like from "@/types/Like";
+import Comment from "@/types/Comment";
 
 const ItemService = {
   getItems(params?: { search?: string; tag?: string }) {
@@ -66,6 +67,14 @@ const ItemService = {
       .post(`/items/likes/`, data)
       .then((response) => {
         return response.data as Like;
+      })
+      .catch(handleAxiosError);
+  },
+  postComment(data: { content: string; item: number }) {
+    return instance
+      .post(`/items/comments/`, data)
+      .then((response) => {
+        return response.data as Comment;
       })
       .catch(handleAxiosError);
   },
