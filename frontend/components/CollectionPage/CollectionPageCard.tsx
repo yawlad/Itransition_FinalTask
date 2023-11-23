@@ -1,7 +1,7 @@
 "use client";
 import Collection from "@/types/Collection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faEdit, faAdd } from "@fortawesome/free-solid-svg-icons";
 import MarkdownWrapper from "../MarkdownWrapper";
 import mergeArrays from "@/utils/MergeFieldArrays";
 import UniversalItemRow from "../UniversalItemRow";
@@ -61,25 +61,36 @@ const CollectionPageCard = ({
           value={collection.items.length}
         />
       </div>
-      <div className="w-full">
-        <div className="text-center p-4 font-semibold bg-gray-100">
-          Custom Fields:
+      {collection.custom_fields_classes.length ? (
+        <div className="w-full">
+          <div className="text-center p-4 font-semibold bg-gray-100">
+            Custom Fields:
+          </div>
+          <div>
+            {collection.custom_fields_classes.map((field) => (
+              <UniversalItemRow
+                key={`custom_${field.name}`}
+                name={field.name}
+                value={field.type}
+              />
+            ))}
+          </div>
         </div>
-        <div>
-          {collection.custom_fields_classes.map((field) => (
-            <UniversalItemRow
-              key={`custom_${field.name}`}
-              name={field.name}
-              value={field.type}
-            />
-          ))}
-        </div>
-      </div>
-
+      ) : (
+        <></>
+      )}
       {sessionStore.isUserOwnerOrSuperUser(collection.creator.id) ? (
         <div className="flex justify-between w-full">
           <button className="button-standart" onClick={() => setEditMode(true)}>
             <FontAwesomeIcon icon={faEdit} />
+          </button>
+          <button
+            className="button-green"
+            onClick={() =>
+              router.replace(`/collection/${collection.id}/additem`)
+            }
+          >
+            Add Item <FontAwesomeIcon icon={faAdd} />
           </button>
           <button
             className="button-red"
