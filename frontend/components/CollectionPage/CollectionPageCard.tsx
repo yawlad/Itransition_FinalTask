@@ -12,12 +12,15 @@ import Image from "next/image";
 import CollectionService from "@/services/CollectionService";
 import { useRouter } from "next/navigation";
 
-interface CollectionProps {
+interface CollectionPageCardProps {
   collection: Collection;
   setEditMode: (value: boolean) => void;
 }
 
-const CollectionPageCard = ({ collection, setEditMode }: CollectionProps) => {
+const CollectionPageCard = ({
+  collection,
+  setEditMode,
+}: CollectionPageCardProps) => {
   const router = useRouter();
   const handleDeleteButton = (id: number) => {
     CollectionService.deleteCollection(id).then(() => {
@@ -38,11 +41,25 @@ const CollectionPageCard = ({ collection, setEditMode }: CollectionProps) => {
         alt=""
         priority={true}
       />
-      <h2 className="text-4xl font-semibold border-b-2 w-full text-center p-2">
+      <h2 className="text-4xl font-semibold border-b-2 w-full text-center p-2 bg-gray-100">
         {collection.name}
       </h2>
       <div className="w-full">
         <MarkdownWrapper>{collection.description}</MarkdownWrapper>
+      </div>
+      <div className="w-full">
+        <UniversalItemRow
+          name={"Creator"}
+          value={collection.creator.username}
+        />
+        <UniversalItemRow
+          name={"Created"}
+          value={formatDate(collection.created_at)}
+        />
+        <UniversalItemRow
+          name={"Items amount"}
+          value={collection.items.length}
+        />
       </div>
       <div className="w-full">
         <div className="text-center p-4 font-semibold bg-gray-100">

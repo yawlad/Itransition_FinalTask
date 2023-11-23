@@ -1,3 +1,5 @@
+import FieldType from "./FieldType";
+
 type CustomFieldClass = {
   id: number;
   name: string;

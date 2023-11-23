@@ -1,6 +1,7 @@
 import handleAxiosError from "@/utils/handleAxiosError";
 import { instance } from "./service.api.config";
-import Collection from "@/types/Collection";
+import Collection, { PutCollectionData } from "@/types/Collection";
+import CollectionTheme from "@/types/CollectionTheme";
 
 const CollectionService = {
   getCollections() {
@@ -8,6 +9,14 @@ const CollectionService = {
       .get("/collections/")
       .then((response) => {
         return response.data as Collection[];
+      })
+      .catch(handleAxiosError);
+  },
+  getThemes() {
+    return instance
+      .get("/collections/themes/")
+      .then((response) => {
+        return response.data as CollectionTheme[];
       })
       .catch(handleAxiosError);
   },
@@ -24,6 +33,14 @@ const CollectionService = {
       .delete(`/collections/${id}/`)
       .then((response) => {
         return;
+      })
+      .catch(handleAxiosError);
+  },
+  patchCollection(id: number, data: PutCollectionData) {
+    return instance
+      .patch(`/collections/${id}/`, data)
+      .then((response) => {
+        return response.data as Collection;
       })
       .catch(handleAxiosError);
   },

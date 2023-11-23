@@ -1,3 +1,5 @@
+import CollectionService from "@/services/CollectionService";
+import CollectionTheme from "@/types/CollectionTheme";
 import User from "@/types/User";
 import { makeAutoObservable } from "mobx";
 

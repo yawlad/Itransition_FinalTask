@@ -33,7 +33,6 @@ class CollectionSerializer(serializers.ModelSerializer):
                                    FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])])
 
     items = CollectionItemSerializer(many=True, read_only=True)
-
     common_fields = ('id', 'name', 'description', 'creator',
                      'created_at', 'image_url', 'custom_fields_classes', 'theme', 'image', 'items')
 

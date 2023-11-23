@@ -3,7 +3,7 @@ import CollectionService from "@/services/CollectionService";
 import Collection from "@/types/Collection";
 import { useEffect, useState } from "react";
 import CollectionPageCard from "./CollectionPageCard";
-import sessionStore from "@/stores/SessionStore";
+import CollectionPageCardEdit from "./CollectionPageCardEdit";
 
 interface CollectionPageProps {
   id: number;
@@ -15,7 +15,6 @@ const CollectionPage = ({ id }: CollectionPageProps) => {
   useEffect(() => {
     CollectionService.getCollection(id).then((collection) => {
       setCollection(collection);
-      
     });
   }, []);
   return (
@@ -23,7 +22,11 @@ const CollectionPage = ({ id }: CollectionPageProps) => {
       {collection ? (
         <>
           {editMode ? (
-            ""
+            <CollectionPageCardEdit
+              collection={collection}
+              setEditMode={setEditMode}
+              setCollection={setCollection}
+            />
           ) : (
             <CollectionPageCard
               collection={collection}
