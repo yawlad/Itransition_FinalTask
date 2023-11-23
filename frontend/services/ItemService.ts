@@ -1,4 +1,4 @@
-import Item from "@/types/Item";
+import Item, { PostItemData, PutItemData } from "@/types/Item";
 import { instance } from "./service.api.config";
 import Tag from "@/types/Tag";
 import handleAxiosError from "@/utils/handleAxiosError";
@@ -21,19 +21,19 @@ const ItemService = {
       })
       .catch(handleAxiosError);
   },
-  // postItem(data) {
-  //   return instance
-  //     .delete(`/items/`)
-  //     .then((response) => {
-  //       return true;
-  //     })
-  //     .catch(handleAxiosError);
-  // },
-  patchItem(id: number) {
+  postItem(data: PostItemData) {
     return instance
-      .delete(`/items/${id}`)
+      .post(`/items/`, data)
       .then((response) => {
-        return true;
+        return response.data as Item;
+      })
+      .catch(handleAxiosError);
+  },
+  patchItem(id: number, data: PutItemData) {
+    return instance
+      .patch(`/items/${id}`, data)
+      .then((response) => {
+        return response.data as Item;
       })
       .catch(handleAxiosError);
   },

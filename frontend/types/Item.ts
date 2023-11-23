@@ -15,4 +15,17 @@ type Item = {
   custom_fields: CustomField[];
 };
 
+export interface PostItemData {
+  name: string;
+  collection: number;
+  new_tags: string[];
+  custom_fields: CustomField[];
+}
+export interface PutItemData {
+  name?: string;
+  collection?: number;
+  new_tags?: string[];
+  custom_fields?: CustomField[];
+}
+
 export default Item;

@@ -102,6 +102,7 @@ const CollectionPageCard = ({
       ) : (
         ""
       )}
+      <hr className="my-6 border-2 w-full" />
       <div className="w-full flex flex-col gap-4">
         {collection.items.map((item) => {
           const fields = mergeArrays(
