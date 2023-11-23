@@ -18,7 +18,7 @@ const ProfilePage = () => {
             <ProfileTable user={user} setEditMode={setEditMode} />
           )}
         </div>
-        <div className="w">
+        <div className="">
           <ProfileCollectionTable />
         </div>
       </div>

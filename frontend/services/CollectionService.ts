@@ -1,6 +1,9 @@
 import handleAxiosError from "@/utils/handleAxiosError";
 import { instance } from "./service.api.config";
-import Collection, { PutCollectionData } from "@/types/Collection";
+import Collection, {
+  PostCollectionData,
+  PutCollectionData,
+} from "@/types/Collection";
 import CollectionTheme from "@/types/CollectionTheme";
 
 const CollectionService = {
@@ -39,6 +42,14 @@ const CollectionService = {
   patchCollection(id: number, data: PutCollectionData) {
     return instance
       .patch(`/collections/${id}/`, data)
+      .then((response) => {
+        return response.data as Collection;
+      })
+      .catch(handleAxiosError);
+  },
+  postCollection(data: PostCollectionData) {
+    return instance
+      .post("/collections/", data)
       .then((response) => {
         return response.data as Collection;
       })

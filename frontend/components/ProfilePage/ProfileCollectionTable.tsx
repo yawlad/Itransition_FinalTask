@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import CollectionService from "@/services/CollectionService";
 import sessionStore from "@/stores/SessionStore";
@@ -39,7 +39,10 @@ const ProfileCollectionTable = observer(() => {
             </Link>
           );
         })}
-        
+
+        <Link href={"/collection/add"} className="button-green text-center" >
+          Add Collection <FontAwesomeIcon icon={faAdd} />
+        </Link>
       </div>
     </div>
   );

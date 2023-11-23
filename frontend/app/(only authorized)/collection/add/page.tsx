@@ -1,4 +1,6 @@
+import AddCollectionPage from "@/components/CollectionPage/AddCollectionPage";
+
 const AddCollection = () => {
-return <h1>AddCollection</h1>
-}
-export default AddCollection
+  return <AddCollectionPage />;
+};
+export default AddCollection;

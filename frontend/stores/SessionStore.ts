@@ -1,4 +1,5 @@
 import CollectionService from "@/services/CollectionService";
+import Collection from "@/types/Collection";
 import CollectionTheme from "@/types/CollectionTheme";
 import User from "@/types/User";
 import { makeAutoObservable } from "mobx";
@@ -31,6 +32,13 @@ class SessionStore {
       this.user.collections = this.user?.collections.filter(
         (collection) => collection.id !== id
       );
+    }
+    this.user = this.user;
+  }
+
+  addCollection(coollection: Collection) {
+    if (this.user) {
+      this.user.collections.push(coollection);
     }
     this.user = this.user;
   }

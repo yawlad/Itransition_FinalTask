@@ -15,6 +15,14 @@ type Collection = {
   theme: CollectionTheme;
 };
 
+export interface PostCollectionData {
+  name: string;
+  description: string;
+  image: File | null;
+  theme: number;
+  custom_fields_classes?: CustomFieldClass[];
+}
+
 export interface PutCollectionData {
   name?: string;
   description?: string;
