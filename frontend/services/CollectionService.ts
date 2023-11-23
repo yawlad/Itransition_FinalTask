@@ -40,12 +40,9 @@ const CollectionService = {
       .catch(handleAxiosError);
   },
   patchCollection(id: number, data: PutCollectionData) {
+    console.log(data);
     return instance
-      .patch(`/collections/${id}/`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .patch(`/collections/${id}/`, data)
       .then((response) => {
         return response.data as Collection;
       })
@@ -53,7 +50,16 @@ const CollectionService = {
   },
   postCollection(data: PostCollectionData) {
     return instance
-      .post("/collections/", data, {
+      .post("/collections/", data)
+      .then((response) => {
+        return response.data as Collection;
+      })
+      .catch(handleAxiosError);
+  },
+  patchImageCollection(id: number, data: { image: File }) {
+    console.log(data);
+    return instance
+      .patch(`/collections/${id}/`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

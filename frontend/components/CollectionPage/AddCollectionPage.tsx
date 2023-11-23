@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import sessionStore from "@/stores/SessionStore";
 
-const CollectionPageCardEdit = () => {
+const AddCollectionPage = () => {
   const router = useRouter();
   const [editData, setEditData] = useState<PostCollectionData>({
     name: "",
@@ -28,14 +28,25 @@ const CollectionPageCardEdit = () => {
     image: null,
   });
 
+  const [image, setImage] = useState<File>();
+
   const [themes, setThemes] = useState<CollectionTheme[]>([]);
 
   const submitHandler = (event: FormEvent) => {
     event.preventDefault();
 
     CollectionService.postCollection(editData).then((collectionRes) => {
-      sessionStore.addCollection(collectionRes);
-      router.replace("/profile/");
+      if (image) {
+        CollectionService.patchImageCollection(collectionRes.id, {
+          image: image,
+        }).then((col) => {
+          sessionStore.addCollection(col);
+          router.replace("/profile/");
+        });
+      } else {
+        sessionStore.addCollection(collectionRes);
+        router.replace("/profile/");
+      }
     });
   };
 
@@ -44,7 +55,7 @@ const CollectionPageCardEdit = () => {
   };
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) setEditData({ ...editData, ["image"]: file });
+    if (file) setImage(file);
   };
 
   const handleCustomFieldsChange = (
@@ -211,4 +222,4 @@ const CollectionPageCardEdit = () => {
   );
 };
 
-export default CollectionPageCardEdit;
+export default AddCollectionPage;

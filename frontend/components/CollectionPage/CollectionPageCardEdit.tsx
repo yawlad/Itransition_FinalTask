@@ -28,7 +28,10 @@ const CollectionPageCardEdit = ({
     description: collection.description,
     custom_fields_classes: collection.custom_fields_classes,
     theme: collection.theme.id,
+    image: null,
   });
+
+  const [image, setImage] = useState<File>();
 
   const [themes, setThemes] = useState<CollectionTheme[]>([]);
 
@@ -36,11 +39,23 @@ const CollectionPageCardEdit = ({
     event.preventDefault();
     CollectionService.patchCollection(collection.id, editData).then(
       (collectionRes) => {
-        setEditMode(false);
-        collectionRes.theme = themes.filter(
-          (theme) => theme.id == (collectionRes.theme as unknown)
-        )[0];
-        setCollection(collectionRes);
+        if (image) {
+          CollectionService.patchImageCollection(collectionRes.id, {
+            image: image,
+          }).then((col) => {
+            setEditMode(false);
+            col.theme = themes.filter(
+              (theme) => theme.id == (col.theme as unknown)
+            )[0];
+            setCollection(col);
+          });
+        } else {
+          setEditMode(false);
+          collectionRes.theme = themes.filter(
+            (theme) => theme.id == (collectionRes.theme as unknown)
+          )[0];
+          setCollection(collectionRes);
+        }
       }
     );
   };
@@ -80,7 +95,7 @@ const CollectionPageCardEdit = ({
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) setEditData({ ...editData, ["image"]: file });
+    if (file) setImage(file);
   };
 
   useEffect(() => {

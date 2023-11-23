@@ -18,17 +18,17 @@ type Collection = {
 export interface PostCollectionData {
   name: string;
   description: string;
-  image: File | null;
   theme: number;
-  custom_fields_classes?: CustomFieldClass[];
+  custom_fields_classes: CustomFieldClass[];
+  image: null;
 }
 
 export interface PutCollectionData {
   name?: string;
   description?: string;
-  image?: File | null;
   theme?: number;
   custom_fields_classes?: CustomFieldClass[];
+  image: null;
 }
 
 export default Collection;
