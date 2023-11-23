@@ -17,7 +17,7 @@ class ItemCollectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Collection
-        fields = ('id', 'name', 'creator', )
+        fields = ('id', 'name', 'creator', 'custom_fields_classes')
 
 
 class ItemTagSerializer(serializers.ModelSerializer):
