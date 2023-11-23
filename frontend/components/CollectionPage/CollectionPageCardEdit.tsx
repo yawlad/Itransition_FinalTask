@@ -123,7 +123,7 @@ const CollectionPageCardEdit = ({
           ))}
         </select>
       </div>
-      <div className="relative">
+      <div className="relative mt-4">
         <Image
           width={320}
           height={320}
@@ -208,7 +208,7 @@ const CollectionPageCardEdit = ({
             </div>
           ))}
           <button
-            className="button-standart text-2xl w-fit m-auto"
+            className="button-standart text-2xl w-fit m-auto mt-2"
             onClick={handleAddFieldButton}
           >
             +

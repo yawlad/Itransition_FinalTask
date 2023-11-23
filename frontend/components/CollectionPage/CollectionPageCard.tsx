@@ -1,9 +1,14 @@
 "use client";
 import Collection from "@/types/Collection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faEdit, faAdd } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashCan,
+  faEdit,
+  faAdd,
+  faCheck,
+  faClose,
+} from "@fortawesome/free-solid-svg-icons";
 import MarkdownWrapper from "../MarkdownWrapper";
-import mergeArrays from "@/utils/mergeArrays";
 import UniversalItemRow from "../UniversalItemRow";
 import Link from "next/link";
 import formatDate from "@/utils/formatDate";
@@ -125,7 +130,24 @@ const CollectionPageCard = ({
               {item.custom_fields.map((field) => {
                 return (
                   <div key={`${item.id}_${field.name}`}>
-                    <UniversalItemRow name={field.name} value={field.value} />
+                    <UniversalItemRow
+                      name={field.name}
+                      value={
+                        field.type != "checkbox" ? (
+                          field.value
+                        ) : field.value ? (
+                          <FontAwesomeIcon
+                            icon={faCheck}
+                            className="text-green-400"
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faClose}
+                            className="text-red-400"
+                          />
+                        )
+                      }
+                    />
                   </div>
                 );
               })}

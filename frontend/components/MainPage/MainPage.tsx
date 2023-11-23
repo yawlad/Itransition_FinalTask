@@ -38,7 +38,7 @@ const MainPage = observer(() => {
     <main>
       <TagCloud tags={tags} />
       <h2 className="text-4xl font-semibold text-center my-4">Last items</h2>
-      <div className="container m-auto flex flex-row-reverse flex-wrap gap-8 p-10 justify-around">
+      <div className="container m-auto flex flex-row-reverse flex-wrap gap-8 p-4 md:p-10 justify-around">
         {lastItems.map((item) => {
           return <ItemCard key={`item_${item.id}`} item={item} />;
         })}
@@ -46,7 +46,7 @@ const MainPage = observer(() => {
       <h2 className="text-4xl font-semibold text-center my-4">
         TOP 5 Largest collections
       </h2>
-      <div className="container m-auto flex flex-col-reverse flex-wrap gap-8 p-10 justify-around">
+      <div className="container m-auto flex flex-col-reverse flex-wrap gap-8 p-4 md:p-10  justify-around">
         {largestCollections.map((collection) => {
           return (
             <CollectionCard

@@ -1,6 +1,8 @@
+import FieldType from "./FieldType";
+
 type CustomField = {
   name: string;
-  type: string;
+  type: FieldType;
   value: string;
 };
 

@@ -9,7 +9,7 @@ const ItemCard = ({ item }: CollectionCardData) => {
   return (
     <Link
       href={`/item/${item.id}`}
-      className="flex flex-col gap-2 border p-4 pb-5 rounded-md relative bg-white"
+      className="flex flex-col gap-2 border p-4 pb-5 rounded-md relative bg-white break-all"
     >
       <h4 className="text-2xl text-center font-semibold">{item.name}</h4>
       <h5 className="text-center">{item.collection.name}</h5>
