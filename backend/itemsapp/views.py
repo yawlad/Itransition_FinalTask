@@ -17,7 +17,15 @@ class ItemListCreateView(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
     permission_classes = [IsAuthenticatedOrReadOnly,]
     filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'collection__name', 'collection__description', 'comments__content']
+    search_fields = ['name', 'collection__name',
+                     'collection__description', 'comments__content', 'tags__name']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        tag = self.request.query_params.get('tag', None)
+        if tag:
+            queryset = queryset.filter(tags__name=tag)
+        return queryset
 
     def perform_create(self, serializer):
         new_tags = serializer.validated_data.pop('new_tags')

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button-standart {
+  @apply inline-block px-4 py-1 shadow-md rounded-md cursor-pointer border duration-200 hover:scale-105;
+}
+
+.button-green {
+  @apply button-standart hover:bg-green-500 hover:text-white;
+}
+
+.button-red {
+  @apply button-standart hover:bg-red-500 hover:text-white;
+}

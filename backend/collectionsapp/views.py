@@ -36,10 +36,14 @@ class CollectionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView)
 
     def perform_update(self, serializer):
         instance = self.get_object()
-        if (instance.name != self.request.data.get('name')):
+        if (instance.name != self.request.data.get('name') and instance.image_url):
             delete_from_dropbox(instance.name)
-        direct_link = create_image_link(self.request.data.get('name'),
-                                        serializer.validated_data.pop('image'))
+        image = serializer.validated_data.pop('image', None)
+        direct_link = None
+        print(image)
+        if image:
+            direct_link = create_image_link(self.request.data.get('name'),
+                                            image)
         serializer.save(creator=self.request.user, image_url=direct_link)
         return super().perform_update(serializer)
 
