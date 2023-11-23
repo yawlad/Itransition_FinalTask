@@ -32,6 +32,10 @@ class SessionStore {
     }
     this.user = this.user;
   }
+
+  isUserOwnerOrSuperUser(userId: number) {
+    return userId == this.user?.id || this.user?.is_superuser;
+  }
 }
 
 const sessionStore = new SessionStore();

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import CollectionCard from "./CollectionCard";
 import ItemCard from "./ItemCard";
-import TagItem from "../TagCloud/TagItem";
 import CollectionService from "@/services/CollectionService";
 import Collection from "@/types/Collection";
 import Item from "@/types/Item";

@@ -59,9 +59,15 @@ const MarkdownWrapper = ({ children }: MarkdownWrapperProps) => {
           <del className="line-through" {...props} />
         ),
         pre: ({ node, ...props }) => (
-          <pre className="my-4 p-4 bg-gray-100 rounded-md" {...props} />
+          <pre
+            className="my-4 p-4 bg-gray-100 rounded-md overflow-y-auto"
+            {...props}
+          />
         ),
         br: ({ node, ...props }) => <br {...props} />,
+        code: ({ node, ...props }) => (
+          <code className="language-shell overflow-y-auto" {...props} />
+        ),
       }}
     >
       {children}

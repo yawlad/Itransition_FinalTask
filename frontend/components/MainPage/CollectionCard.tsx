@@ -20,7 +20,7 @@ const CollectionCard = ({ collection }: CollectionCardData) => {
         width={300}
         height={300}
         className="w-80 h-fit"
-        src={collection.image_url || "./no-image.svg"}
+        src={collection.image_url || "/no-image.svg"}
         alt=""
         priority={true}
       />

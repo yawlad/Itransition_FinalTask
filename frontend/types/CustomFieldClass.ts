@@ -1,7 +1,7 @@
 type CustomFieldClass = {
   id: number;
   name: string;
-  type: string;
+  type: FieldType;
 };
 
 export default CustomFieldClass;
