@@ -3,7 +3,7 @@ import Collection from "@/types/Collection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faEdit, faAdd } from "@fortawesome/free-solid-svg-icons";
 import MarkdownWrapper from "../MarkdownWrapper";
-import mergeArrays from "@/utils/MergeFieldArrays";
+import mergeArrays from "@/utils/mergeArrays";
 import UniversalItemRow from "../UniversalItemRow";
 import Link from "next/link";
 import formatDate from "@/utils/formatDate";

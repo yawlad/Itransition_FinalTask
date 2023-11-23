@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import User, { PutUserData } from "@/types/User";
 import validateEmail from "@/utils/validateEmail";

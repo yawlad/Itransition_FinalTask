@@ -2,25 +2,37 @@
 import sessionStore from "@/stores/SessionStore";
 import ProfileTable from "./ProfileTable";
 import ProfileEditTable from "./ProfileEditTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileCollectionTable from "./ProfileCollectionTable";
+import User from "@/types/User";
 
 const ProfilePage = () => {
-  const user = sessionStore.getUser();
+  const [user, setUser] = useState<User>();
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    setUser(sessionStore.getUser());
+  }, []);
+
   return (
     <main>
       <div className="container m-auto flex flex-col flex-wrap gap-8 p-10 justify-center">
-        <div className="">
-          {editMode ? (
-            <ProfileEditTable user={user} setEditMode={setEditMode} />
-          ) : (
-            <ProfileTable user={user} setEditMode={setEditMode} />
-          )}
-        </div>
-        <div className="">
-          <ProfileCollectionTable />
-        </div>
+        {user ? (
+          <>
+            <div className="">
+              {editMode ? (
+                <ProfileEditTable user={user} setEditMode={setEditMode} />
+              ) : (
+                <ProfileTable user={user} setEditMode={setEditMode} />
+              )}
+            </div>
+            <div className="">
+              <ProfileCollectionTable />
+            </div>
+          </>
+        ) : (
+          <>LOADING...</>
+        )}
       </div>
     </main>
   );
