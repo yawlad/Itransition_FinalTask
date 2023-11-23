@@ -54,3 +54,13 @@ def is_synced_with_field_classes(fields_classes, fields):
     return is_matching
 
 
+def filter_fields(fields_classes, fields):
+    filtered_result = []
+
+    for item in fields_classes:
+        filter_item = next(
+            (f_item for f_item in fields if f_item["name"] == item["name"]), None)
+        if filter_item:
+            filtered_result.append({**item, **filter_item})
+
+    return filtered_result

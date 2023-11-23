@@ -1,4 +1,5 @@
-from rest_framework import generics, filters
+from rest_framework import generics
+from config.utils import filter_fields
 from config.permissions import IsSuperUserOrOwner
 from .models import Collection, CollectionTheme
 from .serializers import CollectionSerializer, CollectionThemeSerializer
@@ -21,6 +22,7 @@ class CollectionListCreateView(generics.ListCreateAPIView):
         direct_link = create_image_link(self.request.data.get('name'),
                                         serializer.validated_data.pop('image'))
         serializer.save(creator=self.request.user, image_url=direct_link)
+
         return super().perform_create(serializer)
 
 
@@ -40,10 +42,10 @@ class CollectionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView)
             delete_from_dropbox(instance.name)
         image = serializer.validated_data.pop('image', None)
         direct_link = None
-        print(image)
         if image:
             direct_link = create_image_link(self.request.data.get('name'),
                                             image)
+
         serializer.save(creator=self.request.user, image_url=direct_link)
         return super().perform_update(serializer)
 
