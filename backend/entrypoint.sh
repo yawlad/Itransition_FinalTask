@@ -10,9 +10,11 @@ done
 echo "PostgreSQL database is up and running."
 
 echo "Applying database migrations..."
+
 python manage.py makemigrations
 python manage.py migrate
 python manage.py migrate --run-syncdb
+python manage.py makesuperuser
 
 echo "Starting Django server..."
 python manage.py runserver 0.0.0.0:8000
