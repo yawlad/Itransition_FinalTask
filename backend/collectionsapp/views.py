@@ -47,6 +47,7 @@ class CollectionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView)
                                             image)
         custom_fields_classes = serializer.validated_data.get(
             "custom_fields_classes")
+        
         if custom_fields_classes != None:
             for item in instance.items.all():
                 item.custom_fields = filter_fields(item.custom_fields,

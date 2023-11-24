@@ -142,7 +142,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 # DropboxStorage settings
 
-DROPBOX_BASE_URL = 'https://www.dropbox.com'
-DROPBOX_IMAGES_PATH = '/collection_images'
-DROPBOX_ACCESS_TOKEN = os.environ.get(
-    "DROPBOX_ACCESS_TOKEN", 'sl.BqaE-zFRtcSqdNc8wQppe7YU0SaVjPQeLRu1Eontjz3UemUCn6z2gPf9feMFawt0VaSYYIz_-gPXUJzwToD25lc0d5a_Q9O5gTj8SJFBl8YJa6GWHC0HY9VxTtlUyA9w5RLZSnxzu5v2fZ1xG3qA')
+DROPBOX_BASE_URL = os.environ.get(
+    "DROPBOX_BASE_URL", '')
+DROPBOX_IMAGES_PATH = os.environ.get(
+    "DROPBOX_IMAGES_PATH", '')
+DROPBOX_REFRESH_TOKEN = os.environ.get(
+    "DROPBOX_REFRESH_TOKEN", '')
+DROPBOX_APP_KEY = os.environ.get(
+    "DROPBOX_APP_KEY", '')
+DROPBOX_APP_SECRET = os.environ.get(
+    "DROPBOX_APP_SECRET", '')

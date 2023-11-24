@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from config.dropbox import get_dropbox_access_token
 from .models import Item, ItemComment, ItemLike, ItemTag
 from authapp.models import CustomUser
 from collectionsapp.models import Collection
