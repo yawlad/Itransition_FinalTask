@@ -15,6 +15,7 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py migrate --run-syncdb
 python manage.py makesuperuser
+python manage.py setinitialthemes
 
 echo "Starting Django server..."
 python manage.py runserver 0.0.0.0:8000
